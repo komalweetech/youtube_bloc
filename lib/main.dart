@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:youyube_bloc/ui/home_screen.dart';
+import 'package:youyube_bloc/config/routes/routes_name.dart';
+
+import 'config/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+     initialRoute: RoutesName.splashScreen,
+      onGenerateRoute: Routes.generateRoute,
+
     );
   }
 }

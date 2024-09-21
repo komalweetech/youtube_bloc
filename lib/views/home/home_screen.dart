@@ -10,12 +10,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blueGrey,
-        title: const Text('Youtube',style: TextStyle(color: Colors.white),),
-      ),
-    );
+    return Scaffold();
   }
 }
