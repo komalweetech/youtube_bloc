@@ -19,6 +19,7 @@ class EmailChange extends LoginEvent {
 // TODO: implement props
   List<Object?> get props => [email];
 }
+
 class EmailUnfocused extends LoginEvent{}
 
 // password event

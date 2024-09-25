@@ -1,4 +1,4 @@
-part of 'login_bloc.dart';
+part of 'login/login_bloc.dart';
 
 class LoginState extends Equatable {
   final String email;
@@ -6,8 +6,8 @@ class LoginState extends Equatable {
   final String apiMessage;
   final PostApiStatus postApiStatus;
 
-  const LoginState(
-      {this.email = '',
+  const LoginState({
+      this.email = '',
       this.password = '',
       this.apiMessage = '',
       this.postApiStatus = PostApiStatus.initial});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:youyube_bloc/config/routes/routes_name.dart';
 import 'package:youyube_bloc/utils/enums.dart';
 import 'package:youyube_bloc/utils/flush_bar_helper.dart';
 
-import '../../../bloc/login_bloc.dart';
+import '../../../bloc/login/login_bloc.dart';
 
 class LoginButtonWidget extends StatelessWidget {
   final formKey;
@@ -26,6 +27,7 @@ class LoginButtonWidget extends StatelessWidget {
         }
         // for api throw success..
         if (state.postApiStatus == PostApiStatus.success) {
+          Navigator.pushNamed(context, RoutesName.homeScreen);
           FlushBarHelper.flushBarErrorMessage('Login successful', context);
           // ScaffoldMessenger.of(context)
           //   ..hideCurrentSnackBar()
@@ -46,8 +48,7 @@ class LoginButtonWidget extends StatelessWidget {
                 if (formKey.currentState!.validate()) {
                   print('i am here');
                   context.read<LoginBloc>().add(LoginButton());
-                }
-                ;
+                };
               },
               child: state.postApiStatus == PostApiStatus.loading
                   ? const CircularProgressIndicator(color: Colors.white,)

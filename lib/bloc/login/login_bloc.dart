@@ -2,16 +2,16 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:youyube_bloc/repository/auth/login_repository.dart';
+import 'package:youyube_bloc/services/session_manager/session_controller.dart';
 import 'package:youyube_bloc/utils/enums.dart';
 
 part 'login_event.dart';
-
-part 'login_state.dart';
+part '../login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginRepository loginRepository = LoginRepository();
+  LoginRepository loginRepository ;
 
-  LoginBloc() : super(const LoginState()) {
+  LoginBloc({required this.loginRepository}) : super(const LoginState()) {
     on<EmailChange>(_onEmailChange);
     on<PasswordChange>(_onPasswordChange);
     on<LoginButton>(_onLoginButton);
@@ -31,14 +31,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // Map data = { "email": "eve.holt@reqres.in", "password": "cityslicka"};
 
     emit(state.copyWith(postApiStatus: PostApiStatus.loading));
-    await loginRepository.loginApi(data).then((value) {
+    await loginRepository.loginApi(data).then((value) async {
       if (value.error.isNotEmpty) {
         emit(state.copyWith(
             apiMessage: value.error.toString(),
             postApiStatus: PostApiStatus.error));
 
       } else {
-        emit(state.copyWith(
+        // to save user data
+        await SessionController().saveUserInPreference(value);
+        await SessionController().getUserFromPreference();
+           emit(state.copyWith(
             apiMessage: "login successfull",
             postApiStatus: PostApiStatus.success));
       }
